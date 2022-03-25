@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Shop.css'
 import Meal from '../Meal/Meal'
 import Cart from '../Cart/Cart'
-import { AddToMealDb,getMealFromDb } from '../../utilities/mealDb';
+import { AddToMealDb,getMealFromDb,removeFromCart } from '../../utilities/mealDb';
 
 const Shop = () => {
     const [meals,setMeals]=useState([])
@@ -35,6 +35,11 @@ const Shop = () => {
         setCart([...cart,meal])
         AddToMealDb(meal.idMeal)
     }
+    const handleDeleteFromCart=(id)=>{
+        const restCart=cart.filter(c=>c.idMeal!==id)
+        setCart(restCart)
+        removeFromCart(id)
+    }
     //console.log(cart)
     return (
         <section className='w-5/6 mx-auto'>
@@ -49,7 +54,7 @@ const Shop = () => {
                 <div className="col">
                     <div className="grid grid-cols-1 gap-2 mt-3 px-4">
                         {
-                            <Cart cart={cart}/>
+                            <Cart cart={cart} handleDeleteFromCart={handleDeleteFromCart}/>
                         }
                     </div>
                 </div>

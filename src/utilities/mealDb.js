@@ -22,4 +22,14 @@ const getMealFromDb=()=>{
     return mealCart
 
 }
-export{AddToMealDb,getMealFromDb}
+const removeFromCart=(id)=>{
+    let mealCart={}
+    const storedMealCart=localStorage.getItem('meal-cart')
+    if(storedMealCart){
+        mealCart=JSON.parse(storedMealCart)
+        delete mealCart[id]
+        localStorage.setItem('meal-cart',JSON.stringify(mealCart))
+
+    }
+}
+export{AddToMealDb,getMealFromDb,removeFromCart}
